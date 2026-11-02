@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\ReglaNegocioException;
 use App\Http\Middleware\CabecerasSeguridad;
 use App\Http\Middleware\CuentaActiva;
 use App\Http\Middleware\VerificarRol;
@@ -27,6 +28,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn () => route('panel'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // Reglas de negocio (stock insuficiente, implementos sin salidas, etc.): volver al formulario con el mensaje.
+        $exceptions->render(function (ReglaNegocioException $e, Request $request) {
+            return back()->withInput()->withErrors([$e->campo => $e->getMessage()]);
+        });
+
         // Formulario enviado con la sesión ya vencida por inactividad (RN-05).
         $exceptions->render(function (HttpException $e, Request $request) {
             if ($e->getStatusCode() === 419 && ! $request->expectsJson()) {
