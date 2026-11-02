@@ -28,7 +28,14 @@ del código fuente corresponden a esos documentos.
 | RF-07 | Gestionar categorías y su orden en la carta | ✅ |
 | RF-08 | Gestionar productos e implementos con imagen optimizada | ✅ |
 | RNF-10 | Respaldo diario y copia semanal (comando `santar:respaldar`) | ✅ |
-| RF-09 a RF-16 | Módulo de inventario | Pendiente |
+| RF-09 | Registrar entradas (compra local, devolución u otro) | ✅ |
+| RF-10 | Registrar salidas por venta, merma o consumo interno (sin superar el stock, RN-07) | ✅ |
+| RF-11 | Registrar ajustes de inventario según conteo físico (solo administrador) | ✅ |
+| RF-12 | Registrar abastecimientos recibidos de la bodega principal | ✅ |
+| RF-13 | Registrar pérdidas, roturas e incidencias | ✅ |
+| RF-14 | Actualizar el stock automáticamente (transacción y bloqueo de fila) | ✅ |
+| RF-15 | Consultar existencias con búsqueda y filtros | ✅ |
+| RF-16 | Mostrar alertas de stock mínimo y productos agotados | ✅ |
 | RF-17 a RF-24 | Kardex, reportes y carta digital | Pendiente |
 
 ## Tecnologías
