@@ -10,7 +10,7 @@ use LogicException;
 /** RF-05 / RN-20: bitácora automática. Sus registros no se modifican ni se eliminan. */
 class Bitacora extends Model
 {
-    public const MODULOS = ['seguridad' => 'Seguridad', 'usuarios' => 'Usuarios', 'catalogo' => 'Catálogo', 'inventario' => 'Inventario', 'sistema' => 'Sistema'];
+    public const MODULOS = ['seguridad' => 'Seguridad', 'usuarios' => 'Usuarios', 'catalogo' => 'Catálogo', 'inventario' => 'Inventario', 'reportes' => 'Reportes', 'carta' => 'Carta digital', 'sistema' => 'Sistema'];
 
     protected $table = 'bitacora';
 

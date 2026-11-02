@@ -1,4 +1,8 @@
 {
+  "_700-BE_NEtqW.css": {
+    "file": "assets/700-BE_NEtqW.css",
+    "src": "_700-BE_NEtqW.css"
+  },
   "node_modules/@fontsource/nunito-sans/files/nunito-sans-cyrillic-400-normal.woff": {
     "file": "assets/nunito-sans-cyrillic-400-normal-DDHmqnIJ.woff",
     "src": "node_modules/@fontsource/nunito-sans/files/nunito-sans-cyrillic-400-normal.woff"
@@ -192,12 +196,73 @@
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DmbCzZhQ.js",
+    "file": "assets/app-DqOeWH-O.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-CkfAhxbl.css"
+      "assets/app-DXLuQZKV.css",
+      "assets/700-BE_NEtqW.css"
+    ],
+    "assets": [
+      "assets/nunito-sans-cyrillic-ext-600-normal-CVjnjZn6.woff2",
+      "assets/nunito-sans-cyrillic-ext-600-normal-DZXkk6dX.woff",
+      "assets/nunito-sans-cyrillic-600-normal-D4TuIAT6.woff2",
+      "assets/nunito-sans-cyrillic-600-normal-CKMyzy87.woff",
+      "assets/nunito-sans-vietnamese-600-normal-DD7cNabE.woff2",
+      "assets/nunito-sans-vietnamese-600-normal-BW3IEr32.woff",
+      "assets/nunito-sans-latin-ext-600-normal-nHO2odcJ.woff2",
+      "assets/nunito-sans-latin-ext-600-normal-DEh-VjuY.woff",
+      "assets/nunito-sans-latin-600-normal-BtVRvDNj.woff2",
+      "assets/nunito-sans-latin-600-normal-DLks-Kj1.woff",
+      "assets/bootstrap-icons-DJdhg9lH.woff2",
+      "assets/bootstrap-icons-BHUGvtHM.woff",
+      "assets/playfair-display-cyrillic-600-normal-oLY6jnZ7.woff2",
+      "assets/playfair-display-cyrillic-600-normal-DbWAkkgN.woff",
+      "assets/playfair-display-vietnamese-600-normal-ICsRR-qJ.woff2",
+      "assets/playfair-display-vietnamese-600-normal-BPJkAZPN.woff",
+      "assets/playfair-display-latin-ext-600-normal-CEjQclLc.woff2",
+      "assets/playfair-display-latin-ext-600-normal-BumBfC1v.woff",
+      "assets/playfair-display-latin-600-normal-CZLGqjJe.woff2",
+      "assets/playfair-display-latin-600-normal-CxxueQ0Z.woff",
+      "assets/playfair-display-cyrillic-700-normal-Dw3uKy19.woff2",
+      "assets/playfair-display-cyrillic-700-normal-Dk1mTcxf.woff",
+      "assets/playfair-display-vietnamese-700-normal-CaKJSIny.woff2",
+      "assets/playfair-display-vietnamese-700-normal-Cr1rw0mr.woff",
+      "assets/playfair-display-latin-ext-700-normal-C58ejOkc.woff2",
+      "assets/playfair-display-latin-ext-700-normal-D5HUU8GT.woff",
+      "assets/playfair-display-latin-700-normal-CuDiGg7c.woff2",
+      "assets/playfair-display-latin-700-normal-Bc_1Q1cG.woff",
+      "assets/nunito-sans-cyrillic-ext-400-normal-El6lRT8b.woff2",
+      "assets/nunito-sans-cyrillic-ext-400-normal-fk07B0hk.woff",
+      "assets/nunito-sans-cyrillic-400-normal-DUb-KqT8.woff2",
+      "assets/nunito-sans-cyrillic-400-normal-DDHmqnIJ.woff",
+      "assets/nunito-sans-vietnamese-400-normal-V2dSmW1H.woff2",
+      "assets/nunito-sans-vietnamese-400-normal-D5dwM7ZL.woff",
+      "assets/nunito-sans-latin-ext-400-normal-BoHsJHPR.woff2",
+      "assets/nunito-sans-latin-ext-400-normal-CHwj-NZB.woff",
+      "assets/nunito-sans-latin-400-normal-AkRraKH2.woff2",
+      "assets/nunito-sans-latin-400-normal-DY9yCUyQ.woff",
+      "assets/nunito-sans-cyrillic-ext-700-normal-GO46tfsI.woff2",
+      "assets/nunito-sans-cyrillic-ext-700-normal-Cqve7k0J.woff",
+      "assets/nunito-sans-cyrillic-700-normal-BJ2iHHyS.woff2",
+      "assets/nunito-sans-cyrillic-700-normal-DG2UZxR9.woff",
+      "assets/nunito-sans-vietnamese-700-normal-CZwaiz_e.woff2",
+      "assets/nunito-sans-vietnamese-700-normal-BwTSkH1V.woff",
+      "assets/nunito-sans-latin-ext-700-normal-DBq_Pukt.woff2",
+      "assets/nunito-sans-latin-ext-700-normal-jHN8vCOt.woff",
+      "assets/nunito-sans-latin-700-normal-CICRJDmU.woff2",
+      "assets/nunito-sans-latin-700-normal-CLVG92B9.woff"
+    ]
+  },
+  "resources/js/carta.js": {
+    "file": "assets/carta-4WbVR3Ig.js",
+    "name": "carta",
+    "src": "resources/js/carta.js",
+    "isEntry": true,
+    "css": [
+      "assets/carta-CpjVVRUW.css",
+      "assets/700-BE_NEtqW.css"
     ],
     "assets": [
       "assets/playfair-display-cyrillic-600-normal-oLY6jnZ7.woff2",
@@ -226,16 +291,6 @@
       "assets/nunito-sans-latin-ext-400-normal-CHwj-NZB.woff",
       "assets/nunito-sans-latin-400-normal-AkRraKH2.woff2",
       "assets/nunito-sans-latin-400-normal-DY9yCUyQ.woff",
-      "assets/nunito-sans-cyrillic-ext-600-normal-CVjnjZn6.woff2",
-      "assets/nunito-sans-cyrillic-ext-600-normal-DZXkk6dX.woff",
-      "assets/nunito-sans-cyrillic-600-normal-D4TuIAT6.woff2",
-      "assets/nunito-sans-cyrillic-600-normal-CKMyzy87.woff",
-      "assets/nunito-sans-vietnamese-600-normal-DD7cNabE.woff2",
-      "assets/nunito-sans-vietnamese-600-normal-BW3IEr32.woff",
-      "assets/nunito-sans-latin-ext-600-normal-nHO2odcJ.woff2",
-      "assets/nunito-sans-latin-ext-600-normal-DEh-VjuY.woff",
-      "assets/nunito-sans-latin-600-normal-BtVRvDNj.woff2",
-      "assets/nunito-sans-latin-600-normal-DLks-Kj1.woff",
       "assets/nunito-sans-cyrillic-ext-700-normal-GO46tfsI.woff2",
       "assets/nunito-sans-cyrillic-ext-700-normal-Cqve7k0J.woff",
       "assets/nunito-sans-cyrillic-700-normal-BJ2iHHyS.woff2",
@@ -245,13 +300,11 @@
       "assets/nunito-sans-latin-ext-700-normal-DBq_Pukt.woff2",
       "assets/nunito-sans-latin-ext-700-normal-jHN8vCOt.woff",
       "assets/nunito-sans-latin-700-normal-CICRJDmU.woff2",
-      "assets/nunito-sans-latin-700-normal-CLVG92B9.woff",
-      "assets/bootstrap-icons-DJdhg9lH.woff2",
-      "assets/bootstrap-icons-BHUGvtHM.woff"
+      "assets/nunito-sans-latin-700-normal-CLVG92B9.woff"
     ]
   },
   "resources/scss/app.scss": {
-    "file": "assets/app-CJHl9MyA.css",
+    "file": "assets/app-Bxp92JRx.css",
     "name": "app",
     "names": [
       "app.css"

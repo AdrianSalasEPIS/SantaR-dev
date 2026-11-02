@@ -46,7 +46,7 @@
 <div class="card">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead><tr><th></th><th>Producto</th><th>Categoría</th><th>Tipo</th><th class="text-end">Stock actual</th><th class="text-end">Mínimo</th><th class="text-center">Estado</th></tr></thead>
+            <thead><tr><th></th><th>Producto</th><th>Categoría</th><th>Tipo</th><th class="text-end">Stock actual</th><th class="text-end">Mínimo</th><th class="text-center">Estado</th><th class="text-end">Kardex</th></tr></thead>
             <tbody>
             @forelse ($productos as $p)
                 <tr>
@@ -60,9 +60,10 @@
                     <td class="text-end fs-5 fw-bold">{{ $p->stock_actual }}</td>
                     <td class="text-end text-secondary">{{ $p->stock_minimo }}</td>
                     <td class="text-center"><span class="estado estado-{{ strtolower($p->estado()) }}">{{ $p->estado() }}</span></td>
+                    <td class="text-end"><a href="{{ route('kardex.show', $p) }}" class="btn btn-sm btn-outline-secondary btn-accion" title="Ver kardex" aria-label="Ver kardex de {{ $p->nombre }}"><i class="bi bi-clock-history"></i></a></td>
                 </tr>
             @empty
-                <tr><td colspan="7" class="text-center text-secondary py-5">No se encontraron productos con esos filtros.</td></tr>
+                <tr><td colspan="8" class="text-center text-secondary py-5">No se encontraron productos con esos filtros.</td></tr>
             @endforelse
             </tbody>
         </table>

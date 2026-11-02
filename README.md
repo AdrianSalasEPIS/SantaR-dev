@@ -36,7 +36,14 @@ del código fuente corresponden a esos documentos.
 | RF-14 | Actualizar el stock automáticamente (transacción y bloqueo de fila) | ✅ |
 | RF-15 | Consultar existencias con búsqueda y filtros | ✅ |
 | RF-16 | Mostrar alertas de stock mínimo y productos agotados | ✅ |
-| RF-17 a RF-24 | Kardex, reportes y carta digital | Pendiente |
+| RF-17 | Consultar kardex de un producto con filtro de fechas | ✅ |
+| RF-18 | Generar reportes de existencias, movimientos, abastecimientos e incidencias | ✅ |
+| RF-19 | Exportar reportes a PDF (DomPDF) y Excel (Laravel Excel) | ✅ |
+| RF-20 | Carta digital pública por categorías, sin iniciar sesión (`/carta`) | ✅ |
+| RF-21 | Mostrar «Agotado» en los productos sin stock (sin revelar la cantidad) | ✅ |
+| RF-22 | Carta en una sola página desplazable, sin buscador ni filtros | ✅ |
+| RF-23 | Advertencias de la Ley N.° 28681 en la carta | ✅ |
+| RF-24 | Generar y descargar el código QR único de la carta (SVG y hoja PDF para mesas) | ✅ |
 
 ## Tecnologías
 

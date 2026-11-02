@@ -3,18 +3,26 @@
 use App\Http\Controllers\AbastecimientoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BitacoraController;
+use App\Http\Controllers\CartaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ExistenciaController;
 use App\Http\Controllers\IncidenciaController;
+use App\Http\Controllers\KardexController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\QrController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Rol;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/panel');
+
+// CU-16 · Carta digital: única página pública y de solo lectura (RNF-07). Límite alto de peticiones porque
+// los clientes del local comparten la misma IP del Wi-Fi (SAD, escenario de rendimiento).
+Route::get('/carta', [CartaController::class, 'index'])->middleware('throttle:300,1')->name('carta');
 
 // CU-01 / CU-02 · No existe ruta de registro: solo el administrador crea cuentas (RN-01).
 Route::middleware('guest')->group(function () {
@@ -40,6 +48,9 @@ Route::middleware(['auth', 'activo'])->group(function () {
 
         Route::resource('abastecimientos', AbastecimientoController::class)->only(['index', 'create', 'store', 'show']);
         Route::resource('incidencias', IncidenciaController::class)->only(['index', 'create', 'store']);
+
+        // RF-17: kardex del producto.
+        Route::get('/productos/{producto}/kardex', [KardexController::class, 'show'])->name('kardex.show');
     });
 
     // Solo Administrador (RN-02).
@@ -52,6 +63,16 @@ Route::middleware(['auth', 'activo'])->group(function () {
         Route::patch('/usuarios/{usuario}/estado', [UsuarioController::class, 'cambiarEstado'])->name('usuarios.estado');
 
         Route::get('/bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
+
+        // RF-18 y RF-19: reportes y exportación a PDF o Excel.
+        Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');
+        Route::get('/reportes/exportar/{formato}', [ReporteController::class, 'exportar'])
+            ->whereIn('formato', ['pdf', 'excel'])->name('reportes.exportar');
+
+        // RF-24: código QR de la carta.
+        Route::get('/carta-digital', [QrController::class, 'index'])->name('qr.index');
+        Route::get('/carta-digital/qr.svg', [QrController::class, 'descargar'])->name('qr.descargar');
+        Route::get('/carta-digital/hoja-mesas.pdf', [QrController::class, 'hoja'])->name('qr.hoja');
 
         Route::resource('categorias', CategoriaController::class)->except(['show', 'destroy'])
             ->parameters(['categorias' => 'categoria']);

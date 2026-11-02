@@ -333,5 +333,12 @@ h1, h2, h3, h4, .titulo-serif { font-family: "Playfair Display", Georgia, serif;
 
 .pie-app { color: $texto-suave; font-size: .8rem; }
 
+// Vista previa del QR de la carta (RF-24).
+.qr-vista {
+  width: 100%; max-width: 280px; padding: .8rem; background: #fff;
+  border: 2px solid $oro-claro; border-radius: .9rem;
+  svg { width: 100%; height: auto; display: block; }
+}
+
 // Botones de acción en tablas: área táctil mínima de 40 px.
 .btn-accion { min-width: 2.6rem; min-height: 2.4rem; }

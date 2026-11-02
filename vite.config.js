@@ -4,7 +4,8 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/scss/app.scss', 'resources/js/app.js'],
+            // carta.js: hoja ligera de la carta digital pública (RNF-03), separada del panel.
+            input: ['resources/scss/app.scss', 'resources/js/app.js', 'resources/js/carta.js'],
             refresh: true,
         }),
     ],
