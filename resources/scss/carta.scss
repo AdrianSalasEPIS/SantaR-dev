@@ -1,0 +1,131 @@
+// =============================================================================
+// Carta digital pública · ligera y legible en celulares (RNF-03, RNF-14 WCAG 2.2 AA)
+// =============================================================================
+$vino-noche: #2b0a14;
+$bordo: #4a0f1f;
+$borgona: #6d1a2b;
+$tinto: #8c2338;
+$oro: #b8904a;
+$oro-claro: #e6cf94;
+$marfil: #faf6ef;
+$pergamino: #efe6d6;
+$texto: #2e1a1f;
+$texto-suave: #6e5953;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  color: $texto;
+  background: $marfil;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; margin: 0; }
+
+.carta-cabecera {
+  text-align: center;
+  padding: 2rem 1rem 1.6rem;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(#b5485d, .35), transparent 50%),
+    linear-gradient(170deg, $bordo, $vino-noche 75%);
+  border-bottom: 4px solid $oro;
+
+  .carta-logo { width: 76px; height: 76px; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .4)); }
+  .carta-sede { margin: .6rem 0 0; color: $oro-claro; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; }
+  h1 { font-size: 2.1rem; line-height: 1.1; margin-top: .15rem; }
+  .carta-lema { margin: .4rem 0 0; color: $pergamino; font-size: .9rem; }
+}
+
+// RF-23: advertencias de la Ley N.° 28681, visibles y con contraste suficiente.
+.carta-advertencia {
+  margin: 0;
+  padding: .7rem 1rem;
+  background: #fff8e1;
+  border-bottom: 1px solid $oro;
+  text-align: center;
+  font-size: .76rem;
+  line-height: 1.5;
+  color: #4a2c00;
+  strong, span { display: block; }
+}
+
+.carta-contenido { max-width: 760px; margin: 0 auto; padding: .5rem 1rem 1rem; }
+
+.carta-categoria {
+  margin-top: 1.6rem;
+  h2 {
+    font-size: 1.45rem;
+    color: $borgona;
+    padding-bottom: .4rem;
+    margin-bottom: .6rem;
+    border-bottom: 2px solid $oro-claro;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    &::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, $oro, transparent); }
+  }
+}
+
+.carta-lista { list-style: none; margin: 0; padding: 0; }
+
+.carta-producto {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: .75rem 0;
+  border-bottom: 1px dashed $pergamino;
+
+  img, .carta-sin-imagen {
+    width: 76px; height: 76px; flex-shrink: 0;
+    border-radius: .7rem;
+    object-fit: cover;
+    background: $pergamino;
+    box-shadow: 0 6px 14px -8px rgba($vino-noche, .5);
+  }
+
+  .carta-detalle { flex: 1; min-width: 0; }
+  h3 { font-size: 1.08rem; color: $vino-noche; }
+  p { margin: .15rem 0 0; font-size: .86rem; color: $texto-suave; }
+
+  .carta-precio {
+    text-align: right;
+    white-space: nowrap;
+    span { display: block; font-weight: 700; font-size: 1.05rem; color: $borgona; }
+  }
+
+  // RF-21: etiqueta «Agotado» debajo del nombre y la descripción del producto.
+  .carta-agotado {
+    display: inline-block; margin-top: .35rem; padding: .15rem .6rem;
+    font-style: normal; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: #fff; background: #8a2424; border-radius: 2rem;
+  }
+
+  // El producto agotado se sigue mostrando, atenuado, para que el cliente sepa que existe.
+  &.agotado {
+    img, h3, p, .carta-precio span { opacity: .55; }
+    img { filter: grayscale(.8); }
+  }
+}
+
+.carta-vacia { text-align: center; color: $texto-suave; padding: 3rem 1rem; }
+
+.carta-pie {
+  margin-top: 2rem;
+  padding: 1.4rem 1rem 2rem;
+  text-align: center;
+  font-size: .8rem;
+  color: $pergamino;
+  background: $vino-noche;
+  p { margin: .3rem 0; }
+  .carta-advertencia-pie { color: $oro-claro; font-weight: 700; text-transform: uppercase; font-size: .72rem; letter-spacing: .03em; }
+  .carta-firma { opacity: .8; }
+}
+
+@media (min-width: 640px) {
+  .carta-cabecera h1 { font-size: 2.6rem; }
+  .carta-producto img, .carta-producto .carta-sin-imagen { width: 96px; height: 96px; }
+}
