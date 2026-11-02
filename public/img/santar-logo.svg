@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="titulo">
+  <title id="titulo">Logo de SantaR</title>
+  <defs>
+    <radialGradient id="fondo" cx="38%" cy="28%" r="85%">
+      <stop offset="0" stop-color="#8C2338"/>
+      <stop offset="0.55" stop-color="#5A1424"/>
+      <stop offset="1" stop-color="#2B0A14"/>
+    </radialGradient>
+    <linearGradient id="oro" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAD39A"/>
+      <stop offset="1" stop-color="#B8904A"/>
+    </linearGradient>
+    <linearGradient id="cristal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#F3E9DA" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="vino" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B5304D"/>
+      <stop offset="1" stop-color="#6D1A2B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Insignia -->
+  <circle cx="256" cy="256" r="248" fill="url(#fondo)"/>
+  <circle cx="256" cy="256" r="226" fill="none" stroke="url(#oro)" stroke-width="6"/>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#EAD39A" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 9"/>
+
+  <!-- Hojas de vid -->
+  <g fill="url(#oro)" opacity="0.9">
+    <path d="M118 236 C96 206 112 168 150 164 C150 190 142 214 118 236 Z"/>
+    <path d="M394 236 C416 206 400 168 362 164 C362 190 370 214 394 236 Z"/>
+  </g>
+
+  <!-- Copa: cáliz de cristal con vino -->
+  <path d="M176 112 L336 112 C342 196 318 262 256 274 C194 262 170 196 176 112 Z" fill="url(#cristal)"/>
+  <path d="M182 176 L330 176 C324 232 300 262 256 268 C212 262 188 232 182 176 Z" fill="url(#vino)"/>
+  <ellipse cx="256" cy="176" rx="74" ry="9" fill="#C94763" opacity="0.85"/>
+  <path d="M196 130 C194 170 204 210 226 236" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Tallo y base -->
+  <rect x="249" y="272" width="14" height="96" rx="7" fill="url(#cristal)"/>
+  <ellipse cx="256" cy="382" rx="74" ry="16" fill="#2B0A14" opacity="0.45"/>
+  <ellipse cx="256" cy="376" rx="76" ry="16" fill="url(#cristal)"/>
+
+  <!-- Racimo de uvas -->
+  <g fill="url(#oro)">
+    <circle cx="352" cy="300" r="13"/>
+    <circle cx="378" cy="300" r="13"/>
+    <circle cx="365" cy="322" r="13"/>
+    <circle cx="391" cy="322" r="13"/>
+    <circle cx="378" cy="344" r="13"/>
+  </g>
+  <path d="M368 286 C370 272 380 264 392 262" fill="none" stroke="url(#oro)" stroke-width="5" stroke-linecap="round"/>
+</svg>
