@@ -41,6 +41,82 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ------------------------------------------------------------------
+    // RNF-01: registro en menos de un minuto. Filtro rápido sobre la lista de productos.
+    document.querySelectorAll('[data-filtro-de]').forEach((input) => {
+        const select = document.getElementById(input.dataset.filtroDe);
+        if (!select) return;
+        input.addEventListener('input', () => {
+            const texto = input.value.trim().toLowerCase();
+            let primero = null;
+            select.querySelectorAll('option[value]:not([value=""])').forEach((op) => {
+                const coincide = op.textContent.toLowerCase().includes(texto);
+                op.hidden = !coincide;
+                if (coincide && !primero) primero = op;
+            });
+            select.querySelectorAll('optgroup').forEach((g) => {
+                g.hidden = ![...g.querySelectorAll('option')].some((o) => !o.hidden);
+            });
+            if (texto && primero) {
+                select.value = primero.value;
+                select.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+
+    // RF-15: muestra el stock disponible del producto elegido.
+    document.querySelectorAll('select[data-muestra-stock]').forEach((select) => {
+        const destino = document.getElementById(select.dataset.muestraStock);
+        const actualizar = () => {
+            const op = select.selectedOptions[0];
+            if (!destino) return;
+            if (!op || !op.value) {
+                destino.innerHTML = '';
+                return;
+            }
+            const stock = Number(op.dataset.stock);
+            const minimo = Number(op.dataset.minimo);
+            const clase = stock === 0 ? 'estado-agotado' : stock <= minimo ? 'estado-alerta' : 'estado-normal';
+            destino.innerHTML = `<span class="estado ${clase}">Stock disponible: ${stock}</span>`
+                + `<span class="text-secondary small ms-2">mínimo ${minimo}</span>`;
+        };
+        select.addEventListener('change', actualizar);
+        actualizar();
+    });
+
+    // Botones − / + para la cantidad (pantalla táctil).
+    document.querySelectorAll('[data-cantidad]').forEach((grupo) => {
+        const input = grupo.querySelector('input');
+        grupo.querySelectorAll('[data-paso]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const min = Number(input.min || 0);
+                input.value = Math.max(min, (Number(input.value) || 0) + Number(btn.dataset.paso));
+            });
+        });
+    });
+
+    // RF-12: abastecimiento con varias filas producto + cantidad.
+    const tabla = document.getElementById('filas-abastecimiento');
+    const plantilla = document.getElementById('plantilla-fila');
+    if (tabla && plantilla) {
+        let indice = tabla.querySelectorAll('tr').length;
+        const renumerar = () => tabla.querySelectorAll('tr').forEach((tr, i) => {
+            tr.querySelector('.numero-fila').textContent = i + 1;
+        });
+        document.getElementById('agregar-fila')?.addEventListener('click', () => {
+            tabla.insertAdjacentHTML('beforeend', plantilla.innerHTML.replaceAll('__INDICE__', indice++));
+            renumerar();
+            tabla.lastElementChild.querySelector('select')?.focus();
+        });
+        tabla.addEventListener('click', (e) => {
+            const boton = e.target.closest('.quitar-fila');
+            if (boton && tabla.querySelectorAll('tr').length > 1) {
+                boton.closest('tr').remove();
+                renumerar();
+            }
+        });
+    }
+
+    // ------------------------------------------------------------------
     // RF-08: vista previa de la imagen del producto antes de guardarla.
     const archivo = document.getElementById('imagen');
     const vista = document.getElementById('vista-previa');
