@@ -12,6 +12,7 @@
                 <h2 class="h4 mb-1">{{ $usuario->nombre }}</h2>
                 <div class="text-secondary">{{ $usuario->correo }}</div>
                 <span class="badge bg-vino mt-2">{{ $usuario->rol->nombre }}</span>
+                <p class="small text-secondary mt-3 mb-0">El correo es solo su usuario de acceso: SantaR no envía mensajes. Si olvida su contraseña, el administrador puede restablecerla.</p>
             </div>
         </div>
     </div>

@@ -51,6 +51,7 @@
             </button>
         </form>
 
+        <p class="small text-secondary mt-3 mb-0"><i class="bi bi-question-circle me-1"></i>¿Olvidó su contraseña? Solicite al administrador que la restablezca.</p>
         <p class="pie-login mb-0">Las cuentas las crea únicamente el administrador.<br>Desarrollado por Nexora · {{ now()->year }}</p>
     </div>
 </main>
