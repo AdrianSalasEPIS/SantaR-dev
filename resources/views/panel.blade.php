@@ -2,70 +2,100 @@
 
 @section('titulo', 'Panel principal')
 @php($hora = (int) now()->format('G'))
-@section('subtitulo', ($hora < 12 ? 'Buenos días' : ($hora < 19 ? 'Buenas tardes' : 'Buenas noches')).', '.auth()->user()->nombre.'. Este es el resumen de la sede céntrica.')
+@section('subtitulo', ($hora < 12 ? 'Buenos días' : ($hora < 19 ? 'Buenas tardes' : 'Buenas noches')).', '.auth()->user()->nombre.'. Este es el estado del inventario de la sede.')
 
 @section('contenido')
 <div class="row g-3 mb-4">
     <div class="col-6 col-xl-3">
-        <div class="stat vino"><div class="valor">{{ $resumen['productos'] }}</div><div class="etiqueta">Productos de venta activos</div><i class="bi bi-cup-straw fondo" aria-hidden="true"></i></div>
+        <div class="stat vino"><div class="valor">{{ $resumen['productos'] }}</div><div class="etiqueta">Productos activos</div><i class="bi bi-box-seam fondo" aria-hidden="true"></i></div>
     </div>
     <div class="col-6 col-xl-3">
-        <div class="stat oro"><div class="valor">{{ $resumen['enCarta'] }}</div><div class="etiqueta">Visibles en la carta</div><i class="bi bi-book fondo" aria-hidden="true"></i></div>
+        <a href="{{ route('existencias.index', ['estado' => 'alerta']) }}" class="text-decoration-none">
+            <div class="stat oro"><div class="valor">{{ $resumen['alerta'] }}</div><div class="etiqueta">En stock mínimo</div><i class="bi bi-exclamation-triangle fondo" aria-hidden="true"></i></div>
+        </a>
     </div>
     <div class="col-6 col-xl-3">
-        <div class="stat rosado"><div class="valor">{{ $resumen['categorias'] }}</div><div class="etiqueta">Categorías activas</div><i class="bi bi-tags fondo" aria-hidden="true"></i></div>
+        <a href="{{ route('existencias.index', ['estado' => 'agotado']) }}" class="text-decoration-none">
+            <div class="stat rosado"><div class="valor">{{ $resumen['agotados'] }}</div><div class="etiqueta">Agotados</div><i class="bi bi-x-octagon fondo" aria-hidden="true"></i></div>
+        </a>
     </div>
     <div class="col-6 col-xl-3">
-        <div class="stat verde"><div class="valor">{{ $resumen['implementos'] }}</div><div class="etiqueta">Implementos del local</div><i class="bi bi-cup fondo" aria-hidden="true"></i></div>
+        <div class="stat verde"><div class="valor">{{ $resumen['movimientosHoy'] }}</div><div class="etiqueta">Movimientos de hoy</div><i class="bi bi-arrow-left-right fondo" aria-hidden="true"></i></div>
     </div>
 </div>
 
-@if (auth()->user()->esAdministrador())
-    <h2 class="h5 text-vino mb-3"><i class="bi bi-lightning-charge me-1"></i>Accesos rápidos</h2>
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-md-6 col-xxl-3">
-            <a href="{{ route('productos.create') }}" class="acceso"><i class="bi bi-plus-circle bg-vino"></i><span>Nuevo producto<small>Vino, licor, snack o implemento</small></span></a>
-        </div>
-        <div class="col-12 col-md-6 col-xxl-3">
-            <a href="{{ route('productos.index') }}" class="acceso"><i class="bi bi-cup-straw bg-oro"></i><span>Productos<small>Precios, imágenes y estado</small></span></a>
-        </div>
-        <div class="col-12 col-md-6 col-xxl-3">
-            <a href="{{ route('categorias.index') }}" class="acceso"><i class="bi bi-tags bg-rosado"></i><span>Categorías<small>Orden de la carta digital</small></span></a>
-        </div>
-        <div class="col-12 col-md-6 col-xxl-3">
-            <a href="{{ route('usuarios.index') }}" class="acceso"><i class="bi bi-people bg-verde"></i><span>Usuarios<small>Cuentas y roles</small></span></a>
-        </div>
+<h2 class="h5 text-vino mb-3"><i class="bi bi-lightning-charge me-1"></i>Accesos rápidos</h2>
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6 col-xxl-3">
+        <a href="{{ route('movimientos.salida') }}" class="acceso"><i class="bi bi-bag-check bg-vino"></i><span>Registrar venta / salida<small>Venta, merma o consumo interno</small></span></a>
     </div>
+    <div class="col-12 col-md-6 col-xxl-3">
+        <a href="{{ route('abastecimientos.create') }}" class="acceso"><i class="bi bi-truck bg-oro"></i><span>Recibir abastecimiento<small>Productos de la bodega principal</small></span></a>
+    </div>
+    <div class="col-12 col-md-6 col-xxl-3">
+        <a href="{{ route('incidencias.create') }}" class="acceso"><i class="bi bi-exclamation-octagon bg-rosado"></i><span>Registrar incidencia<small>Pérdida, rotura u otro</small></span></a>
+    </div>
+    <div class="col-12 col-md-6 col-xxl-3">
+        <a href="{{ route('movimientos.entrada') }}" class="acceso"><i class="bi bi-box-arrow-in-down bg-verde"></i><span>Registrar entrada<small>Compra local o devolución</small></span></a>
+    </div>
+</div>
 
-    <div class="card">
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <span><i class="bi bi-clock-history me-2 text-oro"></i>Actividad reciente</span>
-            <a href="{{ route('bitacora.index') }}" class="btn btn-sm btn-outline-secondary">Ver bitácora</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead><tr><th>Fecha y hora</th><th>Usuario</th><th>Acción</th><th>Detalle</th></tr></thead>
-                <tbody>
-                @forelse ($actividad as $r)
-                    <tr>
-                        <td class="small text-secondary text-nowrap">{{ $r->fecha_hora->format('d/m/Y H:i') }}</td>
-                        <td class="small fw-semibold">{{ $r->usuario?->nombre ?? '—' }}</td>
-                        <td class="small">{{ ucfirst($r->accion) }}</td>
-                        <td class="small text-secondary">{{ $r->detalle }}</td>
-                    </tr>
+<div class="row g-4">
+    <div class="col-12 col-xxl-6">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span><i class="bi bi-bell me-2 text-oro"></i>Alertas de stock mínimo</span>
+                <a href="{{ route('existencias.index', ['estado' => 'alerta']) }}" class="btn btn-sm btn-outline-secondary">Ver existencias</a>
+            </div>
+            <div class="card-body p-0">
+                @forelse ($alertas as $p)
+                    <div class="d-flex align-items-center gap-3 px-3 py-2 border-bottom">
+                        @if ($p->imagenUrl())
+                            <img src="{{ $p->imagenUrl() }}" class="miniatura" alt="" loading="lazy">
+                        @else
+                            <span class="miniatura-vacia"><i class="bi {{ $p->esImplemento() ? 'bi-cup' : 'bi-cup-straw' }}"></i></span>
+                        @endif
+                        <div class="flex-grow-1">
+                            <div class="fw-bold">{{ $p->nombre }}</div>
+                            <small class="text-secondary">{{ $p->categoria->nombre }} · mínimo {{ $p->stock_minimo }}</small>
+                        </div>
+                        <div class="text-end">
+                            <div class="fs-5 fw-bold">{{ $p->stock_actual }}</div>
+                            <span class="estado estado-{{ strtolower($p->estado()) }}">{{ $p->estado() }}</span>
+                        </div>
+                    </div>
                 @empty
-                    <tr><td colspan="4" class="text-center text-secondary py-5">Aún no hay actividad registrada.</td></tr>
+                    <div class="text-center text-secondary py-5">
+                        <i class="bi bi-emoji-smile fs-1 d-block mb-2 text-success"></i>Todo en orden: no hay productos en stock mínimo.
+                    </div>
                 @endforelse
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
-@else
-    <div class="card">
-        <div class="card-body text-center py-5 text-secondary">
-            <i class="bi bi-info-circle fs-1 d-block mb-2 text-oro"></i>
-            Su cuenta tiene el rol <strong>Encargado de sede</strong>. Las opciones de registro del inventario se habilitan en este panel.
+    <div class="col-12 col-xxl-6">
+        <div class="card h-100">
+            <div class="card-header"><i class="bi bi-clock-history me-2 text-oro"></i>Últimos movimientos</div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead><tr><th>Fecha</th><th>Producto</th><th>Movimiento</th><th class="text-end">Cant.</th><th class="text-end">Stock</th></tr></thead>
+                        <tbody>
+                        @forelse ($ultimos as $m)
+                            <tr>
+                                <td class="small text-secondary text-nowrap">{{ $m->fecha_hora->format('d/m H:i') }}</td>
+                                <td class="fw-semibold">{{ $m->producto->nombre }}</td>
+                                <td><span class="small">{{ \App\Models\Movimiento::TIPOS[$m->tipo] }}</span><br><small class="text-secondary">{{ $m->motivoTexto() }}</small></td>
+                                <td class="text-end fw-bold {{ $m->suma() ? 'text-success' : 'text-danger' }}">{{ $m->suma() ? '+' : '−' }}{{ $m->cantidad }}</td>
+                                <td class="text-end">{{ $m->stock_resultante }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="text-center text-secondary py-5">Aún no hay movimientos registrados.</td></tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-@endif
+</div>
 @endsection
