@@ -36,6 +36,14 @@
             <i class="bi bi-tags"></i> Categorías
         </a>
 
+        <div class="seccion-menu">Reportes y carta</div>
+        <a class="nav-link {{ request()->routeIs('reportes.*') ? 'active' : '' }}" href="{{ route('reportes.index') }}" @if (request()->routeIs('reportes.*')) aria-current="page" @endif>
+            <i class="bi bi-clipboard-data"></i> Reportes
+        </a>
+        <a class="nav-link {{ request()->routeIs('qr.*') ? 'active' : '' }}" href="{{ route('qr.index') }}" @if (request()->routeIs('qr.*')) aria-current="page" @endif>
+            <i class="bi bi-qr-code"></i> Carta digital (QR)
+        </a>
+
         <div class="seccion-menu">Seguridad</div>
         <a class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}" @if (request()->routeIs('usuarios.*')) aria-current="page" @endif>
             <i class="bi bi-people"></i> Usuarios
