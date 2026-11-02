@@ -4,6 +4,28 @@
     <a class="nav-link {{ request()->routeIs('panel') ? 'active' : '' }}" href="{{ route('panel') }}" @if (request()->routeIs('panel')) aria-current="page" @endif>
         <i class="bi bi-house-door"></i> Panel principal
     </a>
+    <a class="nav-link {{ request()->routeIs('existencias.*') ? 'active' : '' }}" href="{{ route('existencias.index') }}" @if (request()->routeIs('existencias.*')) aria-current="page" @endif>
+        <i class="bi bi-box-seam"></i> Existencias
+    </a>
+
+    <div class="seccion-menu">Movimientos</div>
+    <a class="nav-link {{ request()->routeIs('movimientos.salida*') ? 'active' : '' }}" href="{{ route('movimientos.salida') }}" @if (request()->routeIs('movimientos.salida*')) aria-current="page" @endif>
+        <i class="bi bi-bag-check"></i> Registrar salida
+    </a>
+    <a class="nav-link {{ request()->routeIs('movimientos.entrada*') ? 'active' : '' }}" href="{{ route('movimientos.entrada') }}" @if (request()->routeIs('movimientos.entrada*')) aria-current="page" @endif>
+        <i class="bi bi-box-arrow-in-down"></i> Registrar entrada
+    </a>
+    <a class="nav-link {{ request()->routeIs('abastecimientos.*') ? 'active' : '' }}" href="{{ route('abastecimientos.index') }}" @if (request()->routeIs('abastecimientos.*')) aria-current="page" @endif>
+        <i class="bi bi-truck"></i> Abastecimientos
+    </a>
+    <a class="nav-link {{ request()->routeIs('incidencias.*') ? 'active' : '' }}" href="{{ route('incidencias.index') }}" @if (request()->routeIs('incidencias.*')) aria-current="page" @endif>
+        <i class="bi bi-exclamation-octagon"></i> Incidencias
+    </a>
+    @if ($admin)
+        <a class="nav-link {{ request()->routeIs('movimientos.ajuste*') ? 'active' : '' }}" href="{{ route('movimientos.ajuste') }}" @if (request()->routeIs('movimientos.ajuste*')) aria-current="page" @endif>
+            <i class="bi bi-sliders"></i> Ajuste de inventario
+        </a>
+    @endif
 
     @if ($admin)
         <div class="seccion-menu">Catálogo</div>

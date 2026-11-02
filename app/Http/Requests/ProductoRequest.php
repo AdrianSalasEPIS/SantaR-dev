@@ -42,6 +42,8 @@ class ProductoRequest extends FormRequest
             'caracteristicas' => ['nullable', 'string', 'max:100'],
             'precio' => $esProducto ? ['required', 'numeric', 'gt:0', 'max:99999.99', 'decimal:0,2'] : ['numeric', 'min:0'],
             'stock_minimo' => ['required', 'integer', 'min:0', 'max:100000'],
+            // CU-07: el stock inicial solo se indica al registrar; después cambia únicamente con movimientos.
+            'stock_inicial' => $producto ? ['prohibited'] : ['nullable', 'integer', 'min:0', 'max:100000'],
             'visible_en_carta' => ['boolean'],
             'imagen' => [$necesitaImagen ? 'required' : 'nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048', 'dimensions:min_width=200,min_height=200,max_width=6000,max_height=6000'],
         ];
@@ -53,6 +55,7 @@ class ProductoRequest extends FormRequest
             'categoria_id' => 'categoría',
             'caracteristicas' => 'característica',
             'stock_minimo' => 'stock mínimo',
+            'stock_inicial' => 'stock inicial',
             'visible_en_carta' => 'mostrar en la carta',
         ];
     }
@@ -66,6 +69,7 @@ class ProductoRequest extends FormRequest
             'imagen.dimensions' => 'La imagen debe medir al menos 200 × 200 píxeles.',
             'precio.gt' => 'El precio debe ser mayor que cero.',
             'precio.decimal' => 'El precio admite como máximo dos decimales.',
+            'stock_inicial.prohibited' => 'El stock se modifica con entradas, salidas o ajustes.',
         ];
     }
 }

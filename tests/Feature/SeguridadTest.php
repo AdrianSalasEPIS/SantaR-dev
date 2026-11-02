@@ -29,12 +29,15 @@ class SeguridadTest extends TestCase
     public function test_el_panel_es_accesible_para_ambos_roles(): void
     {
         $this->actingAs($this->admin())->get('/panel')->assertOk()->assertSee('Accesos rápidos');
-        $this->actingAs($this->encargado())->get('/panel')->assertOk()->assertDontSee('Accesos rápidos');
+        $this->actingAs($this->encargado())->get('/panel')->assertOk()->assertSee('Accesos rápidos');
     }
 
     public function test_el_menu_del_encargado_no_muestra_opciones_de_administrador(): void
     {
         $this->actingAs($this->encargado())->get('/panel')
+            ->assertSee(route('movimientos.salida'))
+            ->assertDontSee(route('movimientos.ajuste'))
+            ->assertDontSee(route('productos.index'))
             ->assertDontSee(route('usuarios.index'))
             ->assertDontSee(route('bitacora.index'));
     }

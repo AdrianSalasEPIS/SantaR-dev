@@ -6,6 +6,7 @@ use App\Http\Requests\ProductoRequest;
 use App\Models\Bitacora;
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Services\InventarioService;
 use App\Support\ImagenProducto;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,15 +52,19 @@ class ProductoController extends Controller
         ]);
     }
 
-    public function store(ProductoRequest $request): RedirectResponse
+    public function store(ProductoRequest $request, InventarioService $inventario): RedirectResponse
     {
-        $datos = $request->safe()->except(['imagen']);
+        $datos = $request->safe()->except(['imagen', 'stock_inicial']);
+        $stockInicial = (int) $request->input('stock_inicial', 0);
         $imagen = $request->hasFile('imagen') ? ImagenProducto::guardar($request->file('imagen')) : null;
 
         try {
-            $producto = DB::transaction(function () use ($datos, $imagen) {
+            $producto = DB::transaction(function () use ($datos, $imagen, $stockInicial, $inventario) {
                 $producto = Producto::create($datos + ['imagen' => $imagen, 'activo' => true]);
                 Bitacora::registrar('catalogo', 'producto creado', $producto->nombre.($producto->esImplemento() ? ' · implemento' : " · S/ {$producto->precio}"));
+
+                // CU-07, paso 6: el stock inicial se registra como una entrada «Stock inicial» (RN-06).
+                $inventario->registrarStockInicial($producto->id, $stockInicial);
 
                 return $producto;
             });

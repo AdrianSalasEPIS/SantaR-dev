@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AbastecimientoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BitacoraController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ExistenciaController;
+use App\Http\Controllers\IncidenciaController;
+use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProductoController;
@@ -25,8 +29,25 @@ Route::middleware(['auth', 'activo'])->group(function () {
     Route::get('/mi-cuenta', [PerfilController::class, 'edit'])->name('perfil.edit');
     Route::put('/mi-cuenta/contrasena', [PerfilController::class, 'actualizarContrasena'])->name('perfil.contrasena');
 
+    // Operación diaria del inventario: Administrador y Encargado de sede (Tabla 9 del SRS).
+    Route::middleware('rol:'.Rol::ADMINISTRADOR.','.Rol::ENCARGADO)->group(function () {
+        Route::get('/existencias', [ExistenciaController::class, 'index'])->name('existencias.index');
+
+        Route::get('/entradas/registrar', [MovimientoController::class, 'crearEntrada'])->name('movimientos.entrada');
+        Route::post('/entradas', [MovimientoController::class, 'guardarEntrada'])->name('movimientos.entrada.guardar');
+        Route::get('/salidas/registrar', [MovimientoController::class, 'crearSalida'])->name('movimientos.salida');
+        Route::post('/salidas', [MovimientoController::class, 'guardarSalida'])->name('movimientos.salida.guardar');
+
+        Route::resource('abastecimientos', AbastecimientoController::class)->only(['index', 'create', 'store', 'show']);
+        Route::resource('incidencias', IncidenciaController::class)->only(['index', 'create', 'store']);
+    });
+
     // Solo Administrador (RN-02).
     Route::middleware('rol:'.Rol::ADMINISTRADOR)->group(function () {
+        // RF-11: solo el administrador registra ajustes.
+        Route::get('/ajustes/registrar', [MovimientoController::class, 'crearAjuste'])->name('movimientos.ajuste');
+        Route::post('/ajustes', [MovimientoController::class, 'guardarAjuste'])->name('movimientos.ajuste.guardar');
+
         Route::resource('usuarios', UsuarioController::class)->except(['show', 'destroy']);
         Route::patch('/usuarios/{usuario}/estado', [UsuarioController::class, 'cambiarEstado'])->name('usuarios.estado');
 

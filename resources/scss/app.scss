@@ -308,6 +308,18 @@ h1, h2, h3, h4, .titulo-serif { font-family: "Playfair Display", Georgia, serif;
   .form-label { font-weight: 700; color: $bordo; }
 }
 
+// control de cantidad con botones − / + (RNF-01)
+.cantidad-control {
+  .btn { width: 3.2rem; font-size: 1.3rem; }
+  input { text-align: center; font-size: 1.3rem !important; font-weight: 700; }
+}
+
+// estados de stock (RF-15, RF-16)
+.estado { font-weight: 700; font-size: .78rem; padding: .35em .7em; border-radius: 2rem; white-space: nowrap; }
+.estado-normal { background: rgba(#4f7a45, .14); color: #36572e; }
+.estado-alerta { background: rgba(#c8922a, .2); color: #7a520a; }
+.estado-agotado { background: rgba(#a12c2c, .14); color: #8a2424; }
+
 .vista-previa-imagen {
   width: 150px; height: 150px; object-fit: cover; border-radius: .9rem;
   border: 2px dashed $oro; background: $marfil;

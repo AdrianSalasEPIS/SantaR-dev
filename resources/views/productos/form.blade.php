@@ -55,10 +55,19 @@
                             <input type="number" id="stock_minimo" name="stock_minimo" min="0" step="1" value="{{ old('stock_minimo', $producto->stock_minimo) }}"
                                    class="form-control @error('stock_minimo') is-invalid @enderror" required>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <span class="form-label d-block">Stock actual</span>
-                            <div class="form-control bg-light">{{ $producto->stock_actual ?? 0 }} <small class="text-secondary">(cambia solo con movimientos)</small></div>
-                        </div>
+                        @unless ($editando)
+                            <div class="col-6 col-md-4">
+                                <label for="stock_inicial" class="form-label">Stock inicial</label>
+                                <input type="number" id="stock_inicial" name="stock_inicial" min="0" step="1" inputmode="numeric" value="{{ old('stock_inicial', 0) }}"
+                                       class="form-control @error('stock_inicial') is-invalid @enderror">
+                                <div class="form-text">Se registra como entrada «Stock inicial».</div>
+                            </div>
+                        @else
+                            <div class="col-6 col-md-4">
+                                <span class="form-label d-block">Stock actual</span>
+                                <div class="form-control bg-light">{{ $producto->stock_actual }} <small class="text-secondary">(cambia solo con movimientos)</small></div>
+                            </div>
+                        @endunless
                         <div class="col-12" data-solo-producto>
                             <input type="hidden" name="visible_en_carta" value="0">
                             <div class="form-check form-switch fs-5">

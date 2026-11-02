@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bitacora;
-use App\Models\Categoria;
+use App\Models\Movimiento;
 use App\Models\Producto;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/** Panel principal: resumen del catálogo de la sede y actividad reciente. */
+/** Panel principal (CU-13): alertas de stock mínimo y productos agotados (RF-16, RN-11). */
 class PanelController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $esAdmin = $request->user()->esAdministrador();
-
         return view('panel', [
             'resumen' => [
-                'productos' => Producto::activos()->where('tipo', 'PRODUCTO')->count(),
-                'implementos' => Producto::activos()->where('tipo', 'IMPLEMENTO')->count(),
-                'enCarta' => Producto::visiblesEnCarta()->count(),
-                'categorias' => Categoria::where('activo', true)->count(),
+                'productos' => Producto::activos()->count(),
+                'alerta' => Producto::activos()->enAlerta()->where('stock_actual', '>', 0)->count(),
+                'agotados' => Producto::activos()->where('stock_actual', 0)->count(),
+                'movimientosHoy' => Movimiento::whereDate('fecha_hora', today())->count(),
             ],
-            'actividad' => $esAdmin
-                ? Bitacora::with('usuario')->orderByDesc('fecha_hora')->orderByDesc('id')->limit(8)->get()
-                : collect(),
+            'alertas' => Producto::with('categoria')->activos()->enAlerta()
+                ->orderBy('stock_actual')->orderBy('nombre')->limit(8)->get(),
+            'ultimos' => Movimiento::with('producto')->orderByDesc('fecha_hora')->orderByDesc('id')->limit(8)->get(),
         ]);
     }
 }
