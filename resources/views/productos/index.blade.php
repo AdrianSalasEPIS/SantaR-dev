@@ -72,6 +72,7 @@
                     </td>
                     <td class="text-center"><span class="badge {{ $p->activo ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $p->activo ? 'Activo' : 'Inactivo' }}</span></td>
                     <td class="text-end text-nowrap">
+                        <a href="{{ route('kardex.show', $p) }}" class="btn btn-sm btn-outline-secondary btn-accion" title="Ver kardex" aria-label="Ver kardex de {{ $p->nombre }}"><i class="bi bi-clock-history"></i></a>
                         <a href="{{ route('productos.edit', $p) }}" class="btn btn-sm btn-outline-primary btn-accion"><i class="bi bi-pencil"></i> Editar</a>
                         <form method="POST" action="{{ route('productos.estado', $p) }}" class="d-inline"
                               data-confirmar="{{ $p->activo ? '¿Desactivar este producto? Dejará de mostrarse en la carta y su historial se conserva.' : '¿Reactivar este producto?' }}">
